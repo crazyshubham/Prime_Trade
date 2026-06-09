@@ -23,6 +23,20 @@ This dashboard explores how market sentiment affects trading behavior and profit
 
 ---
 
+## Screenshots
+
+### KPI Overview & Sentiment Analysis
+![Dashboard Overview](screenshots/1.png)
+
+### Directional & Temporal Patterns
+![Long Short Monthly](screenshots/3.png)
+
+### Hourly PnL & Top Coins
+![Hourly Coins](screenshots/2.png)
+
+### Trader Leaderboard & Key Insights
+![Leaderboard](screenshots/4.png)
+
 ## Key Findings
 
 - **Extreme Greed = Best Performance** — Traders generated $2.37M in PnL during Extreme Greed periods with an 85% win rate
