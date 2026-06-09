@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hyperliquid × Fear & Greed — Trader Intelligence Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">⚡</div>
+    <div>
+      <h1>Hyperliquid Intelligence</h1>
+      <span>Bitcoin Fear & Greed × Trader Performance Analysis</span>
+    </div>
+  </div>
+  <div class="header-meta">
+    <span class="badge">Jan – Dec 2024</span>
+    <span class="badge" style="background:rgba(139,92,246,0.15);border-color:rgba(139,92,246,0.3);color:#8b5cf6;">32 Traders · 211K Trades</span>
+  </div>
+</header>
+
+<main class="main">
+
+  <div class="section-title">Key Metrics</div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card" style="--card-accent: linear-gradient(90deg,#3b82f6,#8b5cf6)">
+      <div class="kpi-label">Total Closed Trades</div>
+      <div class="kpi-value" id="kpi-trades">—</div>
+      <div class="kpi-sub">Across all 32 traders</div>
+      <div class="kpi-icon">📊</div>
+    </div>
+    <div class="kpi-card" style="--card-accent: linear-gradient(90deg,#10b981,#22c55e)">
+      <div class="kpi-label">Total PnL (USD)</div>
+      <div class="kpi-value pnl-positive" id="kpi-pnl">—</div>
+      <div class="kpi-sub">Cumulative closed PnL</div>
+      <div class="kpi-icon">💰</div>
+    </div>
+    <div class="kpi-card" style="--card-accent: linear-gradient(90deg,#f59e0b,#f97316)">
+      <div class="kpi-label">Overall Win Rate</div>
+      <div class="kpi-value" style="color:#f59e0b" id="kpi-winrate">—</div>
+      <div class="kpi-sub">Across all closed positions</div>
+      <div class="kpi-icon">🎯</div>
+    </div>
+    <div class="kpi-card" style="--card-accent: linear-gradient(90deg,#8b5cf6,#ec4899)">
+      <div class="kpi-label">Unique Traders</div>
+      <div class="kpi-value" style="color:#8b5cf6" id="kpi-traders">—</div>
+      <div class="kpi-sub">On-chain Hyperliquid accounts</div>
+      <div class="kpi-icon">👤</div>
+    </div>
+    <div class="kpi-card" style="--card-accent: linear-gradient(90deg,#10b981,#3b82f6)">
+      <div class="kpi-label">Best Sentiment</div>
+      <div class="kpi-value" style="font-size:16px;padding-top:6px;color:#10b981" id="kpi-sentiment">—</div>
+      <div class="kpi-sub">Highest total PnL period</div>
+      <div class="kpi-icon">🧠</div>
+    </div>
+  </div>
+
+  <div class="section-title">Sentiment Analysis</div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Total PnL by Market Sentiment</div>
+          <div class="chart-subtitle">Aggregated closed PnL across all traders per sentiment bucket</div>
+        </div>
+        <span class="chart-tag tag-green">Core Signal</span>
+      </div>
+      <canvas id="sentimentPnlChart" height="220"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Win Rate by Sentiment</div>
+          <div class="chart-subtitle">% of profitable trades per market condition</div>
+        </div>
+        <span class="chart-tag tag-blue">Win Signal</span>
+      </div>
+      <canvas id="winRateChart" height="220"></canvas>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Sentiment Performance Breakdown</div>
+        <div class="chart-subtitle">Detailed stats per Bitcoin Fear & Greed classification</div>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Sentiment</th>
+          <th>Total PnL</th>
+          <th>Avg PnL / Trade</th>
+          <th>Win Rate</th>
+          <th>Trade Count</th>
+        </tr>
+      </thead>
+      <tbody id="sentimentTableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="section-title">Directional & Temporal Patterns</div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Long vs Short PnL by Sentiment</div>
+          <div class="chart-subtitle">Which direction wins under each market mood</div>
+        </div>
+        <span class="chart-tag tag-purple">Direction</span>
+      </div>
+      <canvas id="longShortChart" height="220"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Monthly PnL Performance</div>
+          <div class="chart-subtitle">Total closed PnL by month across 2024</div>
+        </div>
+        <span class="chart-tag tag-green">Seasonal</span>
+      </div>
+      <canvas id="monthlyChart" height="220"></canvas>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Avg PnL by Hour of Day (IST)</div>
+          <div class="chart-subtitle">Intraday performance — when do traders make the most?</div>
+        </div>
+        <span class="chart-tag tag-purple">Intraday</span>
+      </div>
+      <canvas id="hourlyChart" height="220"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Top Coins by Total PnL</div>
+          <div class="chart-subtitle">Which instruments drove profitability</div>
+        </div>
+        <span class="chart-tag tag-blue">Assets</span>
+      </div>
+      <canvas id="coinsChart" height="220"></canvas>
+    </div>
+  </div>
+
+  <div class="section-title">Trader Leaderboard</div>
+
+  <div class="table-card">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Top 10 Traders by Total PnL</div>
+        <div class="chart-subtitle">Ranked by cumulative closed PnL across all trades in dataset</div>
+      </div>
+      <span class="chart-tag tag-green">Leaderboard</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Account</th>
+          <th>Total PnL</th>
+          <th>Win Rate</th>
+          <th>Trade Count</th>
+        </tr>
+      </thead>
+      <tbody id="traderTableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="section-title">Key Insights</div>
+
+  <div class="insight-grid">
+    <div class="insight-card">
+      <h3>🤑 Extreme Greed Dominates</h3>
+      <p>Trades executed during <strong>Extreme Greed</strong> periods generated over <strong>$2.37M</strong> in total PnL with an 85% win rate. Q4 2024 (post-US election) was the standout period for profitability.</p>
+    </div>
+    <div class="insight-card">
+      <h3>😱 Fear = Danger Zone</h3>
+      <p>During <strong>Extreme Fear</strong>, the win rate collapsed to just <strong>22%</strong> and traders lost a combined <strong>$117K</strong>. Longs especially underperformed — losing over $120K cumulatively when sentiment was most bearish.</p>
+    </div>
+    <div class="insight-card">
+      <h3>⏰ Noon Is Prime Time</h3>
+      <p>Trades opened around <strong>12:00 IST</strong> averaged $243 profit — nearly 5× the all-day average of $48. Late-night trades (23:00) averaged just $36, suggesting intraday timing has significant alpha.</p>
+    </div>
+    <div class="insight-card">
+      <h3>📈 Shorts Win in Greed</h3>
+      <p>Counter-intuitively, <strong>Short positions during Greed</strong> made $450K while Longs only made $197K in the same period. This suggests experienced traders were fading local tops even during bullish sentiment.</p>
+    </div>
+    <div class="insight-card">
+      <h3>🪙 @107 & HYPE Lead</h3>
+      <p>The <strong>@107</strong> token and <strong>HYPE</strong> were the top two performing assets — contributing $2.78M and $1.95M respectively. SOL and ETH followed. Concentration in a few assets is high.</p>
+    </div>
+    <div class="insight-card">
+      <h3>📅 Dec & Feb Standouts</h3>
+      <p><strong>December 2024</strong> alone generated $3M in PnL, likely driven by BTC's post-election ATH. <strong>August</strong> was the only negative month (-$106K), aligning with BTC's summer correction period.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Built for Hyperliquid Data Science Assignment · Dataset: 211K trades across 32 traders · Bitcoin Fear & Greed Index 2024
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="chart_data.js"></script>
+<script src="charts.js"></script>
+
+</body>
+</html>
